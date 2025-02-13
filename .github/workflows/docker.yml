@@ -37,7 +37,7 @@ jobs:
         config:
           # Multi-stage build
           #- { tag: "cpu", dockerfile: ".devops/cpu.Dockerfile", platforms: "linux/amd64,linux/arm64", full: true, light: true, server: true, freediskspace: false}
-          - { tag: "cuda", dockerfile: ".devops/cuda.Dockerfile", platforms: "linux/amd64", full: false, light: false, server: true, freediskspace: false}
+          - { tag: "cuda", dockerfile: ".devops/cuda.Dockerfile", platforms: "linux/amd64", full: false, light: false, server: true, freediskspace: true}
           #- { tag: "musa", dockerfile: ".devops/musa.Dockerfile", platforms: "linux/amd64", full: true, light: true, server: true, freediskspace: false}
           #- { tag: "intel", dockerfile: ".devops/intel.Dockerfile", platforms: "linux/amd64", full: true, light: true, server: true, freediskspace: false}
           #- { tag: "vulkan", dockerfile: ".devops/vulkan.Dockerfile", platforms: "linux/amd64", full: true, light: true, server: true, freediskspace: false}
@@ -98,7 +98,7 @@ jobs:
           GITHUB_REPOSITORY_OWNER: '${{ github.repository_owner }}'
 
       - name: Free Disk Space (Ubuntu)
-        if: ${{ matrix.config.free_disk_space == true }}
+        if: ${{ matrix.config.freediskspace == true }}
         uses: ggml-org/free-disk-space@v1.3.1
         with:
           # this might remove tools that are actually needed,
