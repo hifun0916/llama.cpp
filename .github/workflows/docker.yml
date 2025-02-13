@@ -11,9 +11,9 @@ name: Publish Docker image
 
 on:
   workflow_dispatch: # allows manual triggering
-  schedule:
+  #schedule:
     # Rebuild daily rather than on every push because it is expensive
-    - cron: '12 4 * * *'
+  #  - cron: '12 4 * * *'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref && github.ref || github.run_id }}
@@ -37,7 +37,7 @@ jobs:
         config:
           # Multi-stage build
           #- { tag: "cpu", dockerfile: ".devops/cpu.Dockerfile", platforms: "linux/amd64,linux/arm64", full: true, light: true, server: true, freediskspace: false}
-          - { tag: "cuda", dockerfile: ".devops/cuda.Dockerfile", platforms: "linux/amd64", full: true, light: true, server: true, freediskspace: false}
+          - { tag: "cuda", dockerfile: ".devops/cuda.Dockerfile", platforms: "linux/amd64", full: false, light: false, server: true, freediskspace: false}
           #- { tag: "musa", dockerfile: ".devops/musa.Dockerfile", platforms: "linux/amd64", full: true, light: true, server: true, freediskspace: false}
           #- { tag: "intel", dockerfile: ".devops/intel.Dockerfile", platforms: "linux/amd64", full: true, light: true, server: true, freediskspace: false}
           #- { tag: "vulkan", dockerfile: ".devops/vulkan.Dockerfile", platforms: "linux/amd64", full: true, light: true, server: true, freediskspace: false}
@@ -160,7 +160,7 @@ jobs:
           push: true
           platforms: ${{ matrix.config.platforms }}
           # tag list is generated from step above
-          tags: ${{ steps.tag.outputs.server_output_tags }}
+          tags: "hifun0916/llama.cpp:server-cuda12.3.2"
           file: ${{ matrix.config.dockerfile }}
           target: server
           provenance: false
