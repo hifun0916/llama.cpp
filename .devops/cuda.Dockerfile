@@ -1,6 +1,6 @@
 ARG UBUNTU_VERSION=24.04
 # This needs to generally match the container host's environment.
-ARG CUDA_VERSION=12.8.1
+ARG CUDA_VERSION=12.3.2
 ARG GCC_VERSION=14
 # Target the CUDA build image
 ARG BASE_CUDA_DEV_CONTAINER=docker.io/nvidia/cuda:${CUDA_VERSION}-devel-ubuntu${UBUNTU_VERSION}
